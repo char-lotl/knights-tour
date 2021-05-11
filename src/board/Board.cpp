@@ -2,7 +2,7 @@
 #include "Tile.h"
 #include <iostream>
 
-void add_neighbor_if_in_bounds(int r, int c, int h, int w, STPV2& con, Tile& t);
+void add_neighbor_if_in_bounds(int r, int c, int h, int w, STPV2& con, SmartTilePointer& t);
 bool is_in_bounds(int r, int c, int h, int w);
 int count_digits(int num);
 
@@ -17,17 +17,16 @@ height{h}, width{w}, area{h * w}, used_tiles{0}, contents{static_cast<unsigned l
 	initialize_statistics();
 }
 
+const std::vector<std::vector<int> > KNIGHTS_MOVES = {
+	{-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}
+};
+
 void Board::establish_adjacencies() {
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
-			add_neighbor_if_in_bounds(i - 2, j + 1, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i - 1, j + 2, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i + 1, j + 2, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i + 2, j + 1, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i + 2, j - 1, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i + 1, j - 2, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i - 1, j - 2, height, width, contents, *contents[i][j]);
-			add_neighbor_if_in_bounds(i - 2, j - 1, height, width, contents, *contents[i][j]);
+			for (int k = 0; k < 8; ++k) {
+				add_neighbor_if_in_bounds(i - KNIGHTS_MOVES[k][0], j + KNIGHTS_MOVES[k][1], height, width, contents, contents[i][j]);
+			}
 		}
 	}
 }
@@ -72,9 +71,9 @@ int Board::get_used_tiles() {
 	return used_tiles;
 }
 
-void add_neighbor_if_in_bounds(int r, int c, int h, int w, STPV2& contents, Tile& t) {
+void add_neighbor_if_in_bounds(int r, int c, int h, int w, STPV2& contents, SmartTilePointer& t) {
 	bool in_bounds = is_in_bounds(r, c, h, w);
-	if (in_bounds) t.add_neighbor(contents[r][c]);
+	if (in_bounds) t->add_neighbor(contents[r][c]);
 }
 
 bool is_in_bounds(int r, int c, int h, int w) {

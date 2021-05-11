@@ -41,7 +41,6 @@ int main(int argc, char* argv[]) {
 	}
 	
 	Board b{height, width};
-	// this should bring into existence the tiles and establish their adjacencies
 	
 	find_knights_tour(b, start_row, start_col);
 	

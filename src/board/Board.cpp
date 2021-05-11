@@ -13,10 +13,8 @@ height{h}, width{w}, area{h * w}, used_tiles{0}, contents{static_cast<unsigned l
 			contents[i].push_back(std::make_shared<Tile>());
 		}
 	}
-	
 	establish_adjacencies();
 	initialize_statistics();
-	
 }
 
 void Board::establish_adjacencies() {
@@ -102,7 +100,7 @@ bool Board::unsolvable(SmartTilePointer& t) {
 	bool singleton_dead_end = (adjacency_stats[0] > 0) && (used_tiles + 1 < area);
 	if (singleton_dead_end || (adjacency_stats[1] > 2)) return true;
 	
-	// early return to avoid this loop where possible
+	// early return to avoid the has_singleton_neighbor loop where possible
 	
 	bool doubleton_dead_end = (adjacency_stats[1] > 1) && !(t->has_singleton_neighbor());
 	return doubleton_dead_end;

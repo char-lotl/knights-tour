@@ -2,9 +2,7 @@
 
 Tile::Tile() : used{false}, total_neighbors{0},
 num_unused_neighbors{0}, direction{0}, path_index{0}
-{
-	
-}
+{}
 
 void Tile::add_neighbor(SmartTilePointer& stp) {
 	neighbors.push_back(stp);

@@ -24,7 +24,7 @@ If you're not on a Unix-like, you presumably still generated an executable durin
 
 ## Contributing
 
-This particular project is mostly a done deal; I'm not especially interested in extending its functionality beyond nicer output formatting.
+This particular project is mostly a done deal; I'm not especially interested in extending its functionality.
 
 ## License
 

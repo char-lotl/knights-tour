@@ -104,13 +104,7 @@ bool Board::unsolvable(SmartTilePointer& t) {
 	// and there can only be one terminal node.
 	// if there are two, the current path is not part of a solution.
 	
-	// if there are three or more nodes with only one unused neighbor
-	// (not including the active node)
-	// then either after the next path link, there will be at least
-	// two such nodes not adjacent to the active node,
-	// or there are already two such nodes not adjacent to the active node.
-	// but either way, checking whether there are three singletons is
-	// faster than actually checking adjacencies.
+	// however, checking for adjacency requires an inner loop we'd rather skip.
 	
 	if (singleton_dead_end || (adjacency_stats[1] > 2)) return true;
 	// early return to avoid the has_singleton_neighbor loop where possible

@@ -14,11 +14,11 @@ void find_knights_tour(Board& b, int sr, int sc) {
 	
 	bool success = true;
 	
-	int tracker = 0;
+	int iteration_tracker = 0;
 	
 	while (b.get_used_tiles() < b.get_area()) {
 		
-		++tracker;
+		++iteration_tracker;
 		
 		if (b.get_used_tiles() == 0) {
 			success = false;
@@ -60,7 +60,7 @@ void find_knights_tour(Board& b, int sr, int sc) {
 		
 		b.print_path();
 		
-		std::cout << "\nAnd we used " << tracker << " iterations to do it.\n";
+		std::cout << "\nAnd we used " << iteration_tracker << " iterations to do it.\n";
 		
 	} else {
 		

@@ -97,11 +97,28 @@ int Board::get_area() { return area; }
 
 bool Board::unsolvable(SmartTilePointer& t) {
 	bool singleton_dead_end = (adjacency_stats[0] > 0) && (used_tiles + 1 < area);
-	if (singleton_dead_end || (adjacency_stats[1] > 2)) return true;
+	// detects an isolated node that isn't the final node
 	
+	// a node with only one unused neighbor that is not
+	// adjacent to the active node must be a terminal node,
+	// and there can only be one terminal node.
+	// if there are two, the current path is not part of a solution.
+	
+	// if there are three or more nodes with only one unused neighbor
+	// (not including the active node)
+	// then either after the next path link, there will be at least
+	// two such nodes not adjacent to the active node,
+	// or there are already two such nodes not adjacent to the active node.
+	// but either way, checking whether there are three singletons is
+	// faster than actually checking adjacencies.
+	
+	if (singleton_dead_end || (adjacency_stats[1] > 2)) return true;
 	// early return to avoid the has_singleton_neighbor loop where possible
 	
 	bool doubleton_dead_end = (adjacency_stats[1] > 1) && !(t->has_singleton_neighbor());
+	// after checking for the simpler dead-ends, we use the slightly longer
+	// (but still O(1)) check
+	
 	return doubleton_dead_end;
 }
 

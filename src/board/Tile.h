@@ -2,8 +2,6 @@
 #define TILE_H
 
 #include <vector>
-#include <memory>
-
 #include "SmartTilePointer.h"
 
 struct Tile {
